@@ -7,7 +7,7 @@ defmodule Exzeitable.Params do
   alias Exzeitable.HTML.Format
   alias Exzeitable.Params.Validations
 
-  @enforce_keys [:query, :repo, :routes, :path, :fields, :module, :csrf_token]
+  @enforced_keys [:query, :repo, :routes, :path, :fields, :module, :csrf_token]
 
   @type column :: atom
   @type function_name :: atom
@@ -120,7 +120,7 @@ defmodule Exzeitable.Params do
     |> Map.new()
     |> Map.merge(%{fields: fields, module: module, csrf_token: token})
     |> Validations.paired_options()
-    |> Validations.required_keys_present(@enforce_keys)
+    |> Validations.required_keys_present(@enforced_keys)
     |> then(&struct!(__MODULE__, &1))
   end
 end
